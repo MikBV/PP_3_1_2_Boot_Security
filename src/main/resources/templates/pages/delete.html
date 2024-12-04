@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deleting user</title>
+</head>
+<body>
+    Are you sure you want to delete this user?
+    <p th:text="'User: ' + ${user}"></p>
+
+    <form th:action="@{/users/delete/id}" method="post">
+        <input type="hidden" th:value="${user.id}" name="id">
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+    <form th:action="@{/users}" method="get">
+        <button type="submit">Back</button>
+    </form>
+
+</body>
+</html>

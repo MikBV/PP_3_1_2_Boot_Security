@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change user details</title>
+</head>
+<body>
+    Change user details
+    <form th:action="@{/users/change/id}" method="post">
+        <input type="hidden" th:value="${user.id}" name="id">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" th:value="${user.username}"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" th:value="${user.password}"><br><br>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" th:value="${user.firstName}"><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" th:value="${user.lastName}"><br><br>
+
+        <button type="submit">Confirm changes</button>
+    </form>
+
+    <p th:text="'User: ' + ${user.getId()}"></p>
+
+
+    <br>
+    <form th:action="@{/users}" method="get">
+        <button type="submit">Back</button>
+    </form>
+
+</body>
+</html>
