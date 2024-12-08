@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Класс-сущность User
@@ -17,17 +18,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="username",unique=true, nullable=false, length=64)
+    @Column(name = "username", unique = true, nullable = false, length = 64)
     private String username;
 
-    @Column(name="password",nullable = false, length=24)
+    @Column(name = "password", nullable = false, length = 24)
     private String password;
 
-    @Column(name="firstname",nullable=false, length=32)
+    @Column(name = "firstname", nullable = false, length = 32)
     private String firstName;
 
-    @Column(name="lastname",nullable=false, length=32)
+    @Column(name = "lastname", nullable = false, length = 32)
     private String lastName;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
 
     /**
      * Конструкторы
@@ -85,6 +94,10 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     /**
