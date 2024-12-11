@@ -1,13 +1,22 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Клсаа-сущьность Ролей. Т.е. прав доступа
+ */
+
 @Entity
 @Table (name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
+
+    /**
+     * Объявление полей таблицы
+     */
 
     @Id
     private int id;
@@ -17,6 +26,10 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
+
+    /**
+     * Геттеры и сеттеры
+     */
 
     public String getName() {
         return name;
@@ -38,7 +51,7 @@ public class Role {
         return users;
     }
 
-    public void setRole(User user) {
+    public void addRole(User user) {
         this.users.add(user);
         user.getRoles().add(this);
     }
@@ -46,5 +59,21 @@ public class Role {
     public void removeRole(User user) {
         this.users.remove(user);
         user.getRoles().remove(this);
+    }
+
+    /**
+     * Переопределение toString()
+     */
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return "";
     }
 }
